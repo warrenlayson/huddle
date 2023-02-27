@@ -1,23 +1,47 @@
 ---
-import Layout from '@layouts/Layout.astro'
+import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Contact Us | Huddle">
-    <h1 class="text-4xl my-32 font-bold uppercase text-center text-huddle-red">Contact us</h1>
-	
-    <div class="flex flex-col space-y-10">
+  <main class="flex justify-center flex-1">
+    <div class="flex flex-col my-20 space-y-8 items-center p-8 max-w-4xl">
+      <h1 class="text-4xl font-bold uppercase text-center text-huddle-red">
+        Contact us
+      </h1>
 
-        <div class="flex flex-col items-center">
-            <img class="text-huddle-red w-12 h-12" src="/images/Facebookfb.svg" alt="Facebook">
+      <div class="flex flex-col space-y-10">
+        <span class="text-center">
+          Sinulid Productions is an independent production house that aim to
+          deliver stories to give social awareness and to provide entertainment
+          with the commitment to uphold the goal of democratic Filipino viewers.
+        </span>
+        <div class="flex space-x-10 justify-center items-center">
+          <div class="flex flex-col items-center">
+            <img
+              class="text-huddle-red w-12 h-12"
+              src="/images/Facebookfb.svg"
+              alt="Facebook"
+            />
             <span>Sinulid Productions</span>
-        </div>
-        <div class="flex flex-col items-center">
-            <img class="text-huddle-red w-12 h-12" src="/images/tiktok.svg" alt="Facebook">
+          </div>
+          <div class="flex flex-col items-center">
+            <img
+              class="text-huddle-red w-12 h-12"
+              src="/images/tiktok.svg"
+              alt="Facebook"
+            />
             <span>@sinulidprod</span>
-        </div>
-        <div class="flex flex-col items-center">
-            <img class="text-huddle-red w-12 h-12" src="/images/youtube.svg" alt="Facebook">
+          </div>
+          <div class="flex flex-col items-center">
+            <img
+              class="text-huddle-red w-12 h-12"
+              src="/images/youtube.svg"
+              alt="Facebook"
+            />
             <span>Sinulid Productions</span>
+          </div>
         </div>
+      </div>
     </div>
+  </main>
 </Layout>

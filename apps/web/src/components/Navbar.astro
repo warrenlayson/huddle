@@ -1,22 +1,37 @@
+---
+const links = [
+  {
+    link: "/creators/",
+    label: "The Creators",
+  },
+  {
+    link: "/contact/",
+    label: "Contact Us",
+  },
+];
+---
+
 <header class="bg-white h-[128.67px] lg:h-[88px]">
-  <nav class="mx-auto flex lg:flex-row flex-col space-y-4 lg:space-y-0 max-w-7xl items-center justify-between p-6 lg:px-8">
+  <nav
+    class="mx-auto flex lg:flex-row flex-col space-y-4 lg:space-y-0 max-w-7xl items-center justify-between p-6 lg:px-8"
+  >
     <!-- LOGO -->
     <div class="flex lg:flex-1">
       <a href="/">
-        <img class="h-10 w-auto" src="/images/logo.png" alt="Huddle logo">
+        <img class="h-10 w-auto" src="/images/logo.png" alt="Huddle logo" />
       </a>
     </div>
     <!-- Menu -->
     <ul class="flex items-center space-x-8 text-huddle-red">
-      <li>
-        <a class="text-sm font-semibold leading-6 " href="/story/">The Story</a>
-      </li>
-      <li>
-        <a class="text-sm font-semibold leading-6 " href="/creators/">The Creator</a>
-      </li>
-      <li>
-        <a class="text-sm font-semibold leading-6 " href="/contact/">Contact Us</a>
-      </li>
+      {
+        links.map((link) => (
+          <li>
+            <a class="text-sm font-semibold leading-6 " href={link.link}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </header>
