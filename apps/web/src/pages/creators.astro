@@ -1,7 +1,17 @@
 ---
+import Creator from '@components/Creator.astro';
 import Layout from '@layouts/Layout.astro'
+import creators from '../creators.json'
 ---
 
 <Layout title="The Creators | Huddle">
-    <main>The Creators</main>
+    <main class="flex justify-center items-center">
+		<div class="flex flex-col  items-center p-8 max-w-7xl">
+			<h1 class="text-4xl my-32 font-bold uppercase text-center text-huddle-red ">The Creators</h1>
+			
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
+                {creators.map(creator => <Creator creator={creator} />)}
+            </div>
+		</div>
+	</main>
 </Layout>

@@ -1,0 +1,10 @@
+---
+const creator = Astro.props.creator
+---
+
+<div class="flex flex-col items-center uppercase" >
+  <img class="w-48 h-48" src={`/images/${creator.img}`} alt={`${creator.name} - ${creator.label}`}>
+
+  <p>{creator.name}</p>  
+  <p class="font-bold text-huddle-red">{creator.label}</p>  
+</div>
