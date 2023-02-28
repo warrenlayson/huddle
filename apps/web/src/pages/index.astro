@@ -15,12 +15,14 @@ import Layout from "@layouts/Layout.astro";
         lead to a series of positive or negative events. Every choice they make
         will have consequences that lead to different endings.
       </span>
-      <button
-        type="button"
+      <a
+        href={process.env.NODE_ENV === "production"
+          ? "app.playhuddle.stream"
+          : "http://localhost:3001"}
         class="text-huddle-red text-xl uppercase bg-white py-4 px-10 rounded-full border border-huddle-red w-fit"
       >
         Play the game now!
-      </button>
+      </a>
     </div>
   </main>
 </Layout>
