@@ -8,18 +8,19 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev": "dotenv -- turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md,astro,js,cjs,mjs,json}\" --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@acme/tailwind-config": "workspace:*",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
     "@manypkg/cli": "^0.20.0",
     "@types/node": "^18.14.2",
     "@types/prettier": "^2.7.2",
+    "dotenv-cli": "^7.0.0",
     "eslint-config-acme": "workspace:*",
-    "@acme/tailwind-config": "workspace:*",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "prettier": "2.8.4",
