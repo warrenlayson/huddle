@@ -46,7 +46,7 @@ export default async (phase, { defaultConfig }) => {
         const baseUrl =
           phase === PHASE_DEVELOPMENT_SERVER
             ? "http://localhost:3000"
-            : "www.playhuddle.stream";
+            : "https://www.playhuddle.stream";
         return {
           ...redirect,
           destination: `${baseUrl}${redirect.destination}`,
