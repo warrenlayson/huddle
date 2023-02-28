@@ -1,7 +1,4 @@
-import { initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth } from "firebase/auth";
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
-import { connectStorageEmulator, getStorage } from "firebase/storage";
+import { Firebase } from "@acme/firebase";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -12,19 +9,11 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_APP_ID,
 };
+const firebase = new Firebase(firebaseConfig, import.meta.env.DEV);
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-const firestore = getFirestore(app);
-const storage = getStorage(app);
-
-if (import.meta.env.DEV) {
-  connectAuthEmulator(auth, "http://192.168.1.224:9099", {
-    disableWarnings: true,
-  });
-  connectFirestoreEmulator(firestore, "192.168.1.224", 8080);
-  connectStorageEmulator(storage, "192.168.1.224", 9199);
-}
+const app = firebase.app;
+const firestore = firebase.firestore;
+const storage = firebase.storage;
+const auth = firebase.auth;
 
 export { app, auth, firestore, storage };

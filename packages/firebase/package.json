@@ -1,0 +1,27 @@
+{
+  "name": "@acme/firebase",
+  "version": "0.0.0",
+  "description": "Firebase lib ",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "private": true,
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . ",
+    "lint:fix": "pnpm lint --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "author": "Warren Layson",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-acme": "workspace:*",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "firebase": "^9.17.1"
+  }
+}
