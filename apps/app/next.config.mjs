@@ -12,19 +12,16 @@ import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
 export default async (phase, { defaultConfig }) => {
   const redirects = [
     {
-      source: "/home",
+      source: "/web",
       destination: "/",
-      permanent: false,
     },
     {
       source: "/creators",
       destination: "/creators/",
-      permanent: false,
     },
     {
       source: "/contact",
       destination: "/contact/",
-      permanent: false,
     },
   ];
 
@@ -45,14 +42,18 @@ export default async (phase, { defaultConfig }) => {
     eslint: { ignoreDuringBuilds: !!process.env.CI },
     typescript: { ignoreBuildErrors: !!process.env.CI },
     async redirects() {
-      return redirects.map((redirect) => ({
-        ...redirect,
-        destination:
-          (phase === PHASE_DEVELOPMENT_SERVER
+      return redirects.map((redirect) => {
+        const baseUrl =
+          phase === PHASE_DEVELOPMENT_SERVER
             ? "http://localhost:3000"
-            : "www.playhuddle.stream") + redirect.destination,
-        basePath: false,
-      }));
+            : "www.playhuddle.stream";
+        return {
+          ...redirect,
+          destination: `${baseUrl}${redirect.destination}`,
+          permanent: true,
+          basePath: false,
+        };
+      });
     },
   };
 
