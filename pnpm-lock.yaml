@@ -4,11 +4,12 @@ importers:
 
   .:
     specifiers:
+      '@acme/tailwind-config': workspace:*
       '@ianvs/prettier-plugin-sort-imports': ^3.7.1
       '@manypkg/cli': ^0.20.0
       '@types/node': ^18.14.2
       '@types/prettier': ^2.7.2
-      eslint-config-custom: workspace:*
+      eslint-config-acme: workspace:*
       husky: ^8.0.3
       lint-staged: ^13.1.2
       prettier: 2.8.4
@@ -17,11 +18,12 @@ importers:
       turbo: ^1.8.3
       typescript: ^4.9.5
     devDependencies:
+      '@acme/tailwind-config': link:packages/config/tailwind
       '@ianvs/prettier-plugin-sort-imports': 3.7.1_prettier@2.8.4
       '@manypkg/cli': 0.20.0
       '@types/node': 18.14.2
       '@types/prettier': 2.7.2
-      eslint-config-custom: link:packages/eslint-config-custom
+      eslint-config-acme: link:packages/config/eslint
       husky: 8.0.3
       lint-staged: 13.1.2
       prettier: 2.8.4
@@ -39,7 +41,7 @@ importers:
       autoprefixer: ^10.4.7
       dotenv-cli: ^7.0.0
       eslint: ^8.30.0
-      eslint-config-custom: workspace:*
+      eslint-config-acme: workspace:*
       next: 13.1.6
       postcss: ^8.4.14
       react: 18.2.0
@@ -53,14 +55,14 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       zod: 3.20.6
     devDependencies:
-      '@acme/tailwind-config': link:../../packages/tailwind
+      '@acme/tailwind-config': link:../../packages/config/tailwind
       '@types/node': 18.14.2
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
       autoprefixer: 10.4.13_postcss@8.4.21
       dotenv-cli: 7.0.0
       eslint: 8.35.0
-      eslint-config-custom: link:../../packages/eslint-config-custom
+      eslint-config-acme: link:../../packages/config/eslint
       postcss: 8.4.21
       tailwindcss: 3.2.7_postcss@8.4.21
       typescript: 4.9.5
@@ -71,24 +73,20 @@ importers:
       '@astrojs/tailwind': ^3.0.1
       astro: ^2.0.15
       eslint: 7.32.0
-      eslint-config-custom: workspace:*
+      eslint-config-acme: workspace:*
       tailwindcss: ^3.0.24
-      tsconfig: workspace:*
       typescript: ^4.5.3
-      ui: workspace:*
     dependencies:
       '@astrojs/tailwind': 3.0.1_enl5tymeuxlslzmmdrwlr7zkvy
       astro: 2.0.15
       tailwindcss: 3.2.7
-      ui: link:../../packages/ui
     devDependencies:
-      '@acme/tailwind-config': link:../../packages/tailwind
+      '@acme/tailwind-config': link:../../packages/config/tailwind
       eslint: 7.32.0
-      eslint-config-custom: link:../../packages/eslint-config-custom
-      tsconfig: link:../../packages/tsconfig
+      eslint-config-acme: link:../../packages/config/eslint
       typescript: 4.9.5
 
-  packages/eslint-config-custom:
+  packages/config/eslint:
     specifiers:
       '@types/eslint': ^8.21.0
       '@typescript-eslint/eslint-plugin': ^5.49.0
@@ -105,13 +103,13 @@ importers:
       '@typescript-eslint/parser': 5.53.0_jofidmxrjzhj7l6vknpw5ecvfe
       eslint-config-next: 13.0.0_jofidmxrjzhj7l6vknpw5ecvfe
       eslint-config-prettier: 8.6.0_eslint@7.32.0
-      eslint-config-turbo: 0.0.8_eslint@7.32.0
+      eslint-config-turbo: 0.0.9_eslint@7.32.0
       eslint-plugin-react: 7.31.8_eslint@7.32.0
     devDependencies:
       eslint: 7.32.0
       typescript: 4.9.5
 
-  packages/tailwind:
+  packages/config/tailwind:
     specifiers:
       autoprefixer: ^10.4.13
       postcss: ^8.4.21
@@ -120,27 +118,6 @@ importers:
       autoprefixer: 10.4.13_postcss@8.4.21
       postcss: 8.4.21
       tailwindcss: 3.2.7_postcss@8.4.21
-
-  packages/tsconfig:
-    specifiers: {}
-
-  packages/ui:
-    specifiers:
-      '@types/react': ^18.0.17
-      '@types/react-dom': ^18.0.6
-      eslint: ^7.32.0
-      eslint-config-custom: workspace:*
-      react: ^18.2.0
-      tsconfig: workspace:*
-      typescript: ^4.5.2
-    devDependencies:
-      '@types/react': 18.0.28
-      '@types/react-dom': 18.0.11
-      eslint: 7.32.0
-      eslint-config-custom: link:../eslint-config-custom
-      react: 18.2.0
-      tsconfig: link:../tsconfig
-      typescript: 4.9.5
 
 packages:
 
@@ -2280,13 +2257,13 @@ packages:
       eslint: 7.32.0
     dev: false
 
-  /eslint-config-turbo/0.0.8_eslint@7.32.0:
-    resolution: {integrity: sha512-ijj6uv0QX2kWahg3OYnTK1/q4MueXsqY2uE4MP9yeUA5CzVhL7GU+biKlv1BfMMqPltixHUcpZoW4yyNLCnMiw==}
+  /eslint-config-turbo/0.0.9_eslint@7.32.0:
+    resolution: {integrity: sha512-j1cTdx3tRmKo0csyfQKhpuT8dynK9oddbK5nmrShoMpXI2qMbxHLYH7MWAid4FmJN8rYympy3VKw5U63Yazycg==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 7.32.0
-      eslint-plugin-turbo: 0.0.8_eslint@7.32.0
+      eslint-plugin-turbo: 0.0.9_eslint@7.32.0
     dev: false
 
   /eslint-import-resolver-node/0.3.7:
@@ -2437,8 +2414,8 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: false
 
-  /eslint-plugin-turbo/0.0.8_eslint@7.32.0:
-    resolution: {integrity: sha512-pExSCmjWw/KFKb3/0PVqxiWb30FbcwDEf6kKv3alvNBSVEzDHalyAGHc9klbLSG+nFmbkfNE3Ky/UHDryCqt8g==}
+  /eslint-plugin-turbo/0.0.9_eslint@7.32.0:
+    resolution: {integrity: sha512-fEsuSnYU3GLtT+s66mUuzDL1LaSieIx5uk3tPO0ToGv7hI2XzOfP24aPkQItTBGl7kq2JaVkRzPwcnfz8hkp0w==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -3582,6 +3559,7 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
+    dev: false
 
   /lowercase-keys/1.0.1:
     resolution: {integrity: sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA==}
@@ -4707,6 +4685,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
 
   /read-cache/1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}

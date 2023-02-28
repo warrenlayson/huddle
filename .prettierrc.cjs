@@ -12,7 +12,7 @@ const config = {
     "prettier-plugin-tailwindcss",
     require.resolve("prettier-plugin-astro"),
   ],
-  tailwindConfig: "./packages/tailwind",
+  tailwindConfig: "./packages/config/tailwind",
   importOrder: [
     "^(react/(.*)$)|^(react$)|^(react-native(.*)$)",
     "^(next/(.*)$)|^(next$)",
