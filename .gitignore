@@ -40,3 +40,4 @@ ui-debug.log*
 .flaskenv*
 !.env.project
 !.env.vault
+.emulator_data

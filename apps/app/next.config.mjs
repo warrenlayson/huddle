@@ -28,7 +28,8 @@ export default async (phase, { defaultConfig }) => {
   /** @type {import("next").NextConfig} */
   const config = {
     reactStrictMode: true,
-
+    /** Enables hot reloading for local packages without a build step */
+    transpilePackages: ["@acme/firebase"],
     /**
      * If you have the "experimental: { appDir: true }" setting enabled, then you
      * must comment the below `i18n` config out.
