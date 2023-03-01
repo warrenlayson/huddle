@@ -24,6 +24,7 @@ export const UploadForm = () => {
     description: z.string().optional(),
     file: z.instanceof(FileList),
     pid: z.string().optional(),
+    endingText: z.string().optional(),
   });
 
   type FormSchema = z.infer<typeof formSchema>;
@@ -53,6 +54,7 @@ export const UploadForm = () => {
         description: data.description ?? null,
         fileName: fileName ?? data.file[0]?.name,
         createdAt: serverTimestamp(),
+        endingText: data.endingText,
       });
 
       if (data.file[0]) {
@@ -137,7 +139,7 @@ export const UploadForm = () => {
         <input
           type="text"
           className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-          placeholder="Time"
+          placeholder="Time (optional)"
           {...register("time")}
           aria-invalid={!!errors.time}
         />
@@ -147,11 +149,21 @@ export const UploadForm = () => {
         <input
           type="text"
           className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-          placeholder="Option description"
+          placeholder="Option description (optional)"
           {...register("description")}
           aria-invalid={!!errors.description}
         />
         {errors.description && <p role="alert">{errors.description.message}</p>}
+      </div>
+      <div>
+        <input
+          type="text"
+          className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
+          placeholder="Ending text (optional)"
+          {...register("endingText")}
+          aria-invalid={!!errors.endingText}
+        />
+        {errors.endingText && <p role="alert">{errors.endingText.message}</p>}
       </div>
       <button
         type="submit"

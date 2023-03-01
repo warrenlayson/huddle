@@ -4,11 +4,12 @@ export type VideoTree = {
   name: string;
   id: string;
   attributes: {
-    pid?: string | undefined;
-    description: string;
+    pid?: string;
+    description?: string;
     storageUri: string;
-    time: string;
+    time?: string;
     videoUrl: string;
+    endingText?: string;
   };
   children?: VideoTree[];
 };
@@ -22,7 +23,7 @@ export const video2tree = (videos: VideoObject[]): VideoTree | undefined => {
       attributes: rest,
     };
   });
-  const tree = data.filter((video) => video.attributes.pid === null);
+  const tree = data.filter((video) => video.attributes.pid === "null");
   function populateVideosChildren(node: VideoTree) {
     const { id } = node;
     data.forEach((answer) => {
