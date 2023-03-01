@@ -11,7 +11,7 @@ const firebaseConfig = {
   messagingSenderId: env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: env.NEXT_PUBLIC_APP_ID,
 };
-const firebase = new Firebase(firebaseConfig, true);
+const firebase = new Firebase(firebaseConfig, false);
 
 const app = firebase.app;
 const firestore = firebase.firestore;
