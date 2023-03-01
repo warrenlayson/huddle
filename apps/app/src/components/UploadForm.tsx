@@ -32,7 +32,7 @@ export const UploadForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     watch,
     reset,
   } = useForm<FormSchema>({
@@ -89,7 +89,8 @@ export const UploadForm = () => {
   };
   return (
     <form
-      onSubmit={void handleSubmit(onSubmit)}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onSubmit={handleSubmit(onSubmit)}
       className={"w-2/5 space-y-8  rounded-md border-2 p-6 shadow-md"}
     >
       <h2 className={"text-center text-2xl font-semibold"}>Add Video</h2>
@@ -168,8 +169,9 @@ export const UploadForm = () => {
       <button
         type="submit"
         className="inline-block rounded bg-blue-600 px-7 py-3 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+        disabled={isSubmitting}
       >
-        Submit
+        {isSubmitting ? "Uploading..." : "Submit"}
       </button>
     </form>
   );

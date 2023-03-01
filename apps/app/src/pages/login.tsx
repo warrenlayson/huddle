@@ -14,7 +14,8 @@ const Login: NextPage = () => {
     if (user) {
       void router.replace("/upload");
     }
-  }, [router, user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const onSuccess = async () => {
     const returnUrl = router.query.return_url as string;

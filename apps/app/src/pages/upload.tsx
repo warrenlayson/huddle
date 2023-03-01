@@ -23,7 +23,8 @@ const Upload: NextPage = () => {
     if (!user) {
       void router.replace("/login?return_url=/upload");
     }
-  }, [router, user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   React.useEffect(() => {
     if (value && !loading) {
