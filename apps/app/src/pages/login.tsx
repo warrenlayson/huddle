@@ -12,9 +12,9 @@ const Login: NextPage = () => {
 
   React.useEffect(() => {
     if (user) {
-      router.replace("/upload");
+      void router.replace("/upload");
     }
-  }, [user]);
+  }, [router, user]);
 
   const onSuccess = async () => {
     const returnUrl = router.query.return_url as string;
@@ -28,7 +28,7 @@ const Login: NextPage = () => {
           <title>Login | Huddle</title>
           <meta name={"robots"} content={"noindex"} />
         </Head>
-        <LoginForm onSuccess={onSuccess} />
+        <LoginForm onSuccess={() => void onSuccess()} />
       </div>
     </main>
   );

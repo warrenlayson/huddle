@@ -4,7 +4,9 @@ import Layout from "@/components/Layout";
 import { firestore } from "@/lib/firebase";
 import { video2tree, type VideoTree } from "@/lib/video2tree";
 import { type VideoObject, type VideoSchema } from "@/types.";
+import cls from "classnames";
 import { collection, getDocs, query } from "firebase/firestore";
+import { MdPause, MdPlayArrow } from "react-icons/md";
 
 type VideoPlayerState = "idle" | "playing" | "paused" | "end";
 

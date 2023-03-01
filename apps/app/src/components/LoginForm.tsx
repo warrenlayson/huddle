@@ -36,6 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
     }
   };
   return (
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <h1 className="text-2xl font-bold">Huddle App</h1>
       <div>

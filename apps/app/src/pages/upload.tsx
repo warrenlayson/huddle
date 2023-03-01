@@ -4,12 +4,12 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 import { UploadForm } from "@/components/UploadForm";
-import { useCenteredTree } from "@/hooks/useCenteredTree";
 import useVideos from "@/hooks/useVideos";
 import { auth } from "@/lib/firebase";
 import { video2tree } from "@/lib/video2tree";
 import { type VideoObject, type VideoSchema } from "@/types.";
 import Tree from "react-d3-tree";
+import { type RenderCustomNodeElementFn } from "react-d3-tree/lib/types/types/common";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const Upload: NextPage = () => {
@@ -21,9 +21,9 @@ const Upload: NextPage = () => {
 
   React.useEffect(() => {
     if (!user) {
-      router.replace("/login?return_url=/upload");
+      void router.replace("/login?return_url=/upload");
     }
-  }, [user]);
+  }, [router, user]);
 
   React.useEffect(() => {
     if (value && !loading) {
@@ -34,8 +34,6 @@ const Upload: NextPage = () => {
       setTree(video2tree(videos));
     }
   }, [value, loading]);
-
-  const [dimensions, containerRef] = useCenteredTree();
 
   if (error) return <strong>Error: {JSON.stringify(error, null, 2)}</strong>;
 
@@ -55,10 +53,9 @@ const Upload: NextPage = () => {
           }
         >
           {tree && (
-            <div id="treeWrapper" className="h-full w-full" ref={containerRef}>
+            <div id="treeWrapper" className="h-full w-full">
               <Tree
                 data={tree}
-                dimensions={dimensions}
                 nodeSize={{ x: 500, y: 200 }}
                 renderCustomNodeElement={renderRectSvgNode}
                 orientation="vertical"
@@ -73,8 +70,10 @@ const Upload: NextPage = () => {
 
 // Here we're using `renderCustomNodeElement` to represent each node
 // as an SVG `rect` instead of the default `circle`.
-// @ts-ignore
-const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
+const renderRectSvgNode: RenderCustomNodeElementFn = ({
+  nodeDatum,
+  toggleNode,
+}) => (
   <g>
     <rect width="20" height="20" x="-10" onClick={toggleNode} />
     <text fill="black" strokeWidth="1" x="20">

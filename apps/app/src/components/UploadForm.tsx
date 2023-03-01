@@ -16,7 +16,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
 export const UploadForm = () => {
-  const [value, loading, error] = useVideos();
+  const [value] = useVideos();
 
   const formSchema = z.object({
     fileName: z.string(),
@@ -89,7 +89,7 @@ export const UploadForm = () => {
   };
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={void handleSubmit(onSubmit)}
       className={"w-2/5 space-y-8  rounded-md border-2 p-6 shadow-md"}
     >
       <h2 className={"text-center text-2xl font-semibold"}>Add Video</h2>

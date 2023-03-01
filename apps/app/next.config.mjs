@@ -8,8 +8,13 @@ import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env.mjs"));
 
-// @ts-ignore
-export default async (phase, { defaultConfig }) => {
+/**
+ * fun
+ * @param {string} phase
+ * @returns {Promise<import("next").NextConfig>}
+ */
+// eslint-disable-next-line @typescript-eslint/require-await
+const fun = async (phase) => {
   const redirects = [
     {
       source: "/web",
@@ -60,3 +65,5 @@ export default async (phase, { defaultConfig }) => {
 
   return config;
 };
+
+export default fun;
