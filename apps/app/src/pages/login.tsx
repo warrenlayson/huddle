@@ -1,17 +1,24 @@
 import React from "react";
-import { NextPage } from "next";
+import { type NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import LoginForm from "@/components/LoginForm";
+import { auth } from "@/lib/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const [user] = useAuthState(auth);
 
-  const onSuccess = () => {
-    const returnUrl = router.query.return_url as string;
-    if (returnUrl) {
-      router.push(returnUrl);
+  React.useEffect(() => {
+    if (user) {
+      router.replace("/upload");
     }
+  }, [user]);
+
+  const onSuccess = async () => {
+    const returnUrl = router.query.return_url as string;
+    await router.push(returnUrl ?? "/upload");
   };
 
   return (

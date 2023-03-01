@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -12,14 +13,16 @@ const Navbar = () => {
     },
   ];
   return (
-    <header className="bg-black">
+    <header className="">
       <nav className="mx-auto flex max-w-7xl flex-col items-center justify-between space-y-4 p-6 lg:flex-row lg:space-y-0 lg:px-8">
         <div className="flex lg:flex-1">
           <Link href={"/web"}>
-            <img
-              className="h-10 w-auto"
+            <Image
               src="/images/logo.png"
-              alt="Huddle logo"
+              alt="Huddle Logo"
+              width={162}
+              height={40}
+              priority
             />
           </Link>
         </div>

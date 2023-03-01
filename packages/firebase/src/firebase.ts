@@ -32,7 +32,11 @@ export class Firebase {
       connectAuthEmulator(this.auth, "http://localhost:9099", {
         disableWarnings: true,
       });
-      connectFirestoreEmulator(this.firestore, "localhost", 8080);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (!this.firestore._settingsFrozen) {
+        connectFirestoreEmulator(this.firestore, "localhost", 8080);
+      }
       connectStorageEmulator(this.storage, "localhost", 9199);
     }
   }

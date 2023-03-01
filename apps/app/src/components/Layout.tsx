@@ -7,7 +7,7 @@ type LayoutProps = { title: string; children?: React.ReactNode };
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   return (
-    <div className={"flex h-screen flex-col"}>
+    <div className={"flex h-screen flex-col bg-black"}>
       <Head>
         <title>{title}</title>
       </Head>
