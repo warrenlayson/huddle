@@ -80,7 +80,6 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
                 id="media"
                 onTimeUpdate={onTimeUpdate}
                 onEnded={onEnded}
-                controls
               >
                 <source src={video?.attributes.videoUrl} type="video/mp4" />
               </video>
