@@ -75,7 +75,11 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
       const currentTime =
         strPadLeft(minutes, "0", 2) + ":" + strPadLeft(seconds, "0", 2);
       if (currentTime === video?.attributes.time) {
-        setPlayerState("end");
+        if (!video?.children) {
+          setEnd(true);
+        } else {
+          setPlayerState("end");
+        }
       }
     }
   };
@@ -130,33 +134,32 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
                   </div>
                 </div>
               ) : (
-                <></>
-                // <button
-                //   type="button"
-                //   className={cls(
-                //     "absolute inset-0 z-10 flex h-full w-full cursor-pointer items-center justify-center outline-none",
-                //   )}
-                //   onClick={onPlay}
-                // >
-                //   <div
-                //     className={cls(
-                //       "flex h-28 w-28 items-center justify-center rounded-full bg-[#fca5a5] bg-opacity-40 transition-all",
-                //       playerState === "playing" ? "opacity-0" : "",
-                //     )}
-                //   >
-                //     {playerState === "paused" || playerState === "idle" ? (
-                //       <MdPlayArrow className="h-20 w-20 text-white" />
-                //     ) : (
-                //       <MdPause className="h-20 w-20 text-white" />
-                //     )}
-                //   </div>
-                // </button>
+                <button
+                  type="button"
+                  className={cls(
+                    "absolute inset-0 z-10 flex h-full w-full cursor-pointer items-center justify-center outline-none",
+                  )}
+                  onClick={onPlay}
+                >
+                  <div
+                    className={cls(
+                      "flex h-28 w-28 items-center justify-center rounded-full bg-[#fca5a5] bg-opacity-40 transition-all",
+                      playerState === "playing" ? "opacity-0" : "",
+                    )}
+                  >
+                    {playerState === "paused" || playerState === "idle" ? (
+                      <MdPlayArrow className="h-20 w-20 text-white" />
+                    ) : (
+                      <MdPause className="h-20 w-20 text-white" />
+                    )}
+                  </div>
+                </button>
               )}
             </>
           ) : (
             <div className="flex h-full flex-col items-center justify-center space-y-10  text-white">
               {video?.attributes.endingText && (
-                <h2 className="text-4xl font-bold">
+                <h2 className="whitespace-pre-line text-center text-4xl font-bold">
                   {video.attributes.endingText}
                 </h2>
               )}
