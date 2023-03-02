@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactEventHandler } from "react";
+import { useRef, useState } from "react";
 import { type NextPage } from "next";
 import dynamic from "next/dynamic";
 import Layout from "@/components/Layout";
@@ -37,6 +37,7 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
 
   const chooseOption = async (scene: typeof vid) => {
     setVideo(scene);
+    setShowOptions(false);
     videoPlayer.current?.load();
     await play();
   };
@@ -78,7 +79,7 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
         if (!video?.children) {
           setEnd(true);
         } else {
-          setPlayerState("end");
+          setShowOptions(true);
         }
       }
     }
@@ -116,7 +117,7 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
                 onDuration={onTimeUpdate}
                 onProgress={onProgress}
               />
-              {playerState === "end" ? (
+              {playerState === "end" || showOptions ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center space-y-10 bg-video-ended-overlay text-white">
                   <p className="text-center text-xl font-bold uppercase ">
                     {video?.attributes.question}

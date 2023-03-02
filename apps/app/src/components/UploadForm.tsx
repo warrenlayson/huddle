@@ -25,7 +25,6 @@ export const UploadForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    watch,
     reset,
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -33,8 +32,6 @@ export const UploadForm = () => {
       nickname: "",
     },
   });
-
-  const watchFileName = watch("nickname");
 
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
