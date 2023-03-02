@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3002 --host 0.0.0.0 --clearScreen false",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist .turbo node_modules",
+    "lint": "pnpm lint",
+    "lint:fix": "pnpm lint --fix"
   },
   "dependencies": {
     "@acme/firebase": "workspace:*",

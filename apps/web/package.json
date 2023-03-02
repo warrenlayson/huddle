@@ -8,7 +8,10 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "next lint",
+    "lint:fix": "pnpm lint --fix",
+    "clean": "rm -rf dist .turbo node_modules"
   },
   "dependencies": {
     "@astrojs/tailwind": "^3.0.1",

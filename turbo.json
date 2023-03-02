@@ -10,6 +10,14 @@
       "outputs": []
     },
     "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "lint:fix": {},
+    "clean": {
+      "cache": false
+    },
+    "//#clean": {
       "cache": false
     }
   },
