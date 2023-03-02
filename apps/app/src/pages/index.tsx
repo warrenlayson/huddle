@@ -10,7 +10,7 @@ import useViews from "@/hooks/useViews";
 import { database, firestore } from "@/lib/firebase";
 import { video2tree, type VideoTree } from "@/lib/video2tree";
 import { type VideoObject, type VideoSchema } from "@/types.";
-import { ref, set, update } from "firebase/database";
+import { ref, update } from "firebase/database";
 import { collection, getDocs, query } from "firebase/firestore";
 import { type OnProgressProps } from "react-player/base";
 
@@ -24,7 +24,7 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [end, setEnd] = useState(false);
   const isStart = video === vid;
-  const [views] = useViews();
+  const [views, loading, error] = useViews();
   const [firstClick, setFirstClick] = useState(true);
 
   const play = async () => {
@@ -32,15 +32,9 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
     if (isStart && firstClick) {
       setFirstClick(false);
       const appRef = ref(database, "app");
-      if (!views) {
-        await set(appRef, {
-          views: 1,
-        });
-      } else {
-        await update(appRef, {
-          views: views + 1,
-        });
-      }
+      await update(appRef, {
+        views: (views ?? 0) + 1,
+      });
     }
   };
 
@@ -113,45 +107,59 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
         <div className={"flex w-full justify-center"}>
           <ViewCounter />
         </div>
-        <div className="relative h-[calc(100vh-88px)]  w-full ">
-          <ReactPlayer
-            url={video?.attributes.videoUrl}
-            playing={playerState === "playing"}
-            width="100%"
-            height={"100%"}
-            onEnded={onEnded}
-            onDuration={onTimeUpdate}
-            onProgress={onProgress}
-          />
-          {playerState === "end" || showOptions ? (
-            <div className="absolute inset-0 flex flex-col items-center justify-center space-y-10 bg-video-ended-overlay text-white">
-              <p className="text-center text-xl font-bold uppercase ">
-                {video?.attributes.question}
-              </p>
-              <div className="flex flex-col items-center gap-10">
-                {video?.children?.map((child) => (
-                  <button
-                    key={child.id}
-                    className="text w-72 min-w-[64px] rounded-md bg-option px-4 py-2 font-semibold outline-none"
-                    onClick={() => void chooseOption(child)}
-                  >
-                    {child?.attributes.description}
-                  </button>
-                ))}
-              </div>
+        {error ? (
+          <h2>
+            Error... Please refresh the page, if problem persists report to
+            Huddle
+          </h2>
+        ) : loading ? (
+          <>Loading...</>
+        ) : (
+          <>
+            <div className="relative h-[calc(100vh-88px)]  w-full ">
+              <ReactPlayer
+                url={video?.attributes.videoUrl}
+                playing={playerState === "playing"}
+                width="100%"
+                height={"100%"}
+                onEnded={onEnded}
+                onDuration={onTimeUpdate}
+                onProgress={onProgress}
+              />
+              {playerState === "end" || showOptions ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center space-y-10 bg-video-ended-overlay text-white">
+                  <p className="text-center text-xl font-bold uppercase ">
+                    {video?.attributes.question}
+                  </p>
+                  <div className="flex flex-col items-center gap-10">
+                    {video?.children?.map((child) => (
+                      <button
+                        key={child.id}
+                        className="text w-72 min-w-[64px] rounded-md bg-option px-4 py-2 font-semibold outline-none"
+                        onClick={() => void chooseOption(child)}
+                      >
+                        {child?.attributes.description}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <VideoButtonOverlay
+                  ended={end}
+                  onClick={onPlay}
+                  playing={playerState === "playing"}
+                />
+              )}
+              {end && video && video.attributes.endingText && (
+                <GameEndModal
+                  text={video.attributes.endingText}
+                  onClick={reset}
+                />
+              )}
             </div>
-          ) : (
-            <VideoButtonOverlay
-              ended={end}
-              onClick={onPlay}
-              playing={playerState === "playing"}
-            />
-          )}
-          {end && video && video.attributes.endingText && (
-            <GameEndModal text={video.attributes.endingText} onClick={reset} />
-          )}
-        </div>
-        <CommentBox />
+            <CommentBox />
+          </>
+        )}
       </div>
     </Layout>
   );

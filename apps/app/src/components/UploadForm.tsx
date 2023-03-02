@@ -44,7 +44,7 @@ export const UploadForm = () => {
         fileName: fileName,
         createdAt: serverTimestamp(),
         endingText: data.endingText,
-        videoUrl: `https://stream.mux.com/${data.file}/low.mp4`,
+        videoUrl: `https://stream.mux.com/${data.file}.m3u8`,
         question: data.question,
       });
 
