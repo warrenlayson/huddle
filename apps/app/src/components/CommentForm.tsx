@@ -7,13 +7,18 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import z from "zod";
 
 const schema = z.object({
-  comment: z.string().min(1),
+  comment: z.string().min(1).max(250, "Your comment should only be upto 250"),
 });
 
 type FormSchema = z.infer<typeof schema>;
 
 function CommentForm() {
-  const { handleSubmit, register, reset } = useForm<FormSchema>({
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
       comment: "",
@@ -54,10 +59,16 @@ function CommentForm() {
           placeholder={"Join the discussion!"}
           {...register("comment")}
         ></textarea>
+        {errors.comment && (
+          <p className={"text-red-600"} role={"alert"}>
+            {errors.comment.message}
+          </p>
+        )}
       </div>
       <button
         className={"w-fit self-end rounded-md bg-yellow-600 px-4 py-2"}
         type={"submit"}
+        disabled={isSubmitting}
       >
         Comment
       </button>
