@@ -1,5 +1,6 @@
 import { useRef, useState, type ReactEventHandler } from "react";
 import { type NextPage } from "next";
+import dynamic from "next/dynamic";
 import Layout from "@/components/Layout";
 import { firestore } from "@/lib/firebase";
 import { video2tree, type VideoTree } from "@/lib/video2tree";
@@ -7,6 +8,9 @@ import { type VideoObject, type VideoSchema } from "@/types.";
 import cls from "classnames";
 import { collection, getDocs, query } from "firebase/firestore";
 import { MdPause, MdPlayArrow } from "react-icons/md";
+import { type OnProgressProps } from "react-player/base";
+
+const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 type VideoPlayerState = "idle" | "playing" | "paused" | "end";
 
@@ -26,7 +30,7 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
     setPlayerState("paused");
   };
 
-  const onEnded: ReactEventHandler<HTMLVideoElement> = () => {
+  const onEnded = () => {
     setPlayerState("end");
     if (!video?.children) setEnd(true);
   };
@@ -51,11 +55,11 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
     }
   };
 
-  const onTimeUpdate: ReactEventHandler<HTMLVideoElement> = (event) => {
+  const onTimeUpdate = (duration: number) => {
+    console.log({ duration });
     if (playerState !== "end") {
-      const target = event.target as HTMLVideoElement;
-      const minutes = Math.floor(target.currentTime / 60);
-      const seconds = Math.floor(target.currentTime - minutes * 60);
+      const minutes = Math.floor(duration / 60);
+      const seconds = Math.floor(duration - minutes * 60);
       const currentTime =
         strPadLeft(minutes, "0", 2) + ":" + strPadLeft(seconds, "0", 2);
       if (currentTime === video?.attributes.time) {
@@ -63,6 +67,31 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
       }
     }
   };
+
+  const onProgress = (props: OnProgressProps) => {
+    if (playerState !== "end") {
+      const minutes = Math.floor(props.playedSeconds / 60);
+      const seconds = Math.floor(props.playedSeconds - minutes * 60);
+      const currentTime =
+        strPadLeft(minutes, "0", 2) + ":" + strPadLeft(seconds, "0", 2);
+      if (currentTime === video?.attributes.time) {
+        setPlayerState("end");
+      }
+    }
+  };
+
+  // const onTimeUpdate: ReactEventHandler<HTMLVideoElement> = (event) => {
+  //   if (playerState !== "end") {
+  //     const target = event.target as HTMLVideoElement;
+  //     const minutes = Math.floor(target.currentTime / 60);
+  //     const seconds = Math.floor(target.currentTime - minutes * 60);
+  //     const currentTime =
+  //       strPadLeft(minutes, "0", 2) + ":" + strPadLeft(seconds, "0", 2);
+  //     if (currentTime === video?.attributes.time) {
+  //       setPlayerState("end");
+  //     }
+  //   }
+  // };
   const strPadLeft = (string: number, pad: string, length: number) =>
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     (new Array(length + 1).join(pad) + string).slice(-length);
@@ -74,19 +103,19 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
         <div className="relative">
           {!end ? (
             <>
-              <video
-                ref={videoPlayer}
-                className=" max-h-full max-w-full object-contain"
-                id="media"
-                onTimeUpdate={onTimeUpdate}
+              <ReactPlayer
+                url={video?.attributes.videoUrl}
+                playing={playerState === "playing"}
+                width="100%"
+                height={"100%"}
                 onEnded={onEnded}
-              >
-                <source src={video?.attributes.videoUrl} type="video/mp4" />
-              </video>
+                onDuration={onTimeUpdate}
+                onProgress={onProgress}
+              />
               {playerState === "end" ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center space-y-10 bg-video-ended-overlay text-white">
                   <p className="text-center text-xl font-bold uppercase ">
-                    What would you do now?
+                    {video?.attributes.question}
                   </p>
                   <div className="flex flex-col items-center gap-10">
                     {video?.children?.map((child) => (
@@ -101,26 +130,27 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
                   </div>
                 </div>
               ) : (
-                <button
-                  type="button"
-                  className={cls(
-                    "absolute inset-0 z-10 flex h-full w-full cursor-pointer items-center justify-center outline-none",
-                  )}
-                  onClick={onPlay}
-                >
-                  <div
-                    className={cls(
-                      "flex h-28 w-28 items-center justify-center rounded-full bg-[#fca5a5] bg-opacity-40 transition-all",
-                      playerState === "playing" ? "opacity-0" : "",
-                    )}
-                  >
-                    {playerState === "paused" || playerState === "idle" ? (
-                      <MdPlayArrow className="h-20 w-20 text-white" />
-                    ) : (
-                      <MdPause className="h-20 w-20 text-white" />
-                    )}
-                  </div>
-                </button>
+                <></>
+                // <button
+                //   type="button"
+                //   className={cls(
+                //     "absolute inset-0 z-10 flex h-full w-full cursor-pointer items-center justify-center outline-none",
+                //   )}
+                //   onClick={onPlay}
+                // >
+                //   <div
+                //     className={cls(
+                //       "flex h-28 w-28 items-center justify-center rounded-full bg-[#fca5a5] bg-opacity-40 transition-all",
+                //       playerState === "playing" ? "opacity-0" : "",
+                //     )}
+                //   >
+                //     {playerState === "paused" || playerState === "idle" ? (
+                //       <MdPlayArrow className="h-20 w-20 text-white" />
+                //     ) : (
+                //       <MdPause className="h-20 w-20 text-white" />
+                //     )}
+                //   </div>
+                // </button>
               )}
             </>
           ) : (

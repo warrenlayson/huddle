@@ -90,6 +90,11 @@ const renderRectSvgNode: RenderCustomNodeElementFn = ({
         Option Name: {nodeDatum.attributes?.description}
       </text>
     )}
+    {nodeDatum.attributes?.question && (
+      <text fill="black" x="20" dy="40" strokeWidth="1">
+        Q: {nodeDatum.attributes?.question}
+      </text>
+    )}
   </g>
 );
 

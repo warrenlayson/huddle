@@ -1,17 +1,8 @@
-import React from "react";
 import useVideos from "@/hooks/useVideos";
-import { auth, firestore, storage } from "@/lib/firebase";
+import { firestore } from "@/lib/firebase";
 import { type VideoSchema } from "@/types.";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-  updateDoc,
-  type DocumentData,
-  type DocumentReference,
-} from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
@@ -19,12 +10,13 @@ export const UploadForm = () => {
   const [value] = useVideos();
 
   const formSchema = z.object({
-    fileName: z.string(),
+    nickname: z.string().optional(),
     time: z.string().optional(),
     description: z.string().optional(),
-    file: z.instanceof(FileList),
+    file: z.string(),
     pid: z.string().optional(),
     endingText: z.string().optional(),
+    question: z.string().optional(),
   });
 
   type FormSchema = z.infer<typeof formSchema>;
@@ -38,33 +30,26 @@ export const UploadForm = () => {
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fileName: "",
+      nickname: "",
     },
   });
 
-  const watchFileName = watch("fileName");
+  const watchFileName = watch("nickname");
 
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
       const videosColRef = collection(firestore, "videos");
-      const fileName = data.fileName.split(" ").join("_");
-      const videoRef = await addDoc(videosColRef, {
+      const fileName = data.nickname?.split(" ").join("_");
+      await addDoc(videosColRef, {
         time: data.time ?? null,
         pid: data.pid ?? null,
         description: data.description ?? null,
-        fileName: fileName ?? data.file[0]?.name,
+        fileName: fileName,
         createdAt: serverTimestamp(),
         endingText: data.endingText,
+        videoUrl: `https://stream.mux.com/${data.file}/low.mp4`,
+        question: data.question,
       });
-
-      if (data.file[0]) {
-        const result = await putVideoStorage(videoRef, data.file[0]);
-
-        await updateDoc(videoRef, {
-          videoUrl: result.publicUrl,
-          storageUri: result.fileSnapshot.metadata.fullPath,
-        });
-      }
 
       reset();
     } catch (err) {
@@ -72,21 +57,6 @@ export const UploadForm = () => {
     }
   };
 
-  const putVideoStorage = async (
-    videoRe: DocumentReference<DocumentData>,
-    file: File,
-  ) => {
-    // Upload the image to Cloud storage
-    const fileName = watchFileName.split(" ").join("_") ?? file.name;
-    const filePath = `${auth.currentUser?.uid}/${videoRe.id}/${fileName}`;
-    const newImageRef = ref(storage, filePath);
-    const fileSnapshot = await uploadBytesResumable(newImageRef, file);
-
-    // Generate a public url for the file
-    const publicUrl = await getDownloadURL(newImageRef);
-
-    return { fileSnapshot, publicUrl } as const;
-  };
   return (
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -98,18 +68,17 @@ export const UploadForm = () => {
         <input
           type="text"
           className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-          placeholder="File Name"
-          {...register("fileName")}
-          aria-invalid={!!errors.fileName}
+          placeholder="Nickname"
+          {...register("nickname")}
+          aria-invalid={!!errors.nickname}
         />
-        {errors.fileName && <p role="alert">{errors.fileName.message}</p>}
+        {errors.nickname && <p role="alert">{errors.nickname.message}</p>}
       </div>
       <div>
         <input
-          type="file"
+          type="text"
           className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-          placeholder="File"
-          accept="video/"
+          placeholder="Playbackid"
           {...register("file")}
         />
       </div>
@@ -127,9 +96,12 @@ export const UploadForm = () => {
             </option>
             {value?.docs.map((doc) => {
               const data = doc.data() as VideoSchema;
+              const parent = value.docs
+                .find((doc) => doc.id === data.pid)
+                ?.data();
               return (
                 <option key={doc.id} value={doc.id}>
-                  {data.fileName}
+                  {data.fileName} {parent && `- ${parent.fileName}`}
                 </option>
               );
             })}
@@ -160,10 +132,18 @@ export const UploadForm = () => {
         <input
           type="text"
           className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-          placeholder="Ending text (optional)"
+          placeholder="Question (optional)"
+          {...register("question")}
+          aria-invalid={!!errors.question}
+        />
+        {errors.question && <p role="alert">{errors.question.message}</p>}
+      </div>
+      <div>
+        <textarea
+          className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
           {...register("endingText")}
           aria-invalid={!!errors.endingText}
-        />
+        ></textarea>
         {errors.endingText && <p role="alert">{errors.endingText.message}</p>}
       </div>
       <button

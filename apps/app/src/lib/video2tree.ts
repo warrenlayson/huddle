@@ -10,6 +10,7 @@ export type VideoTree = {
     time?: string;
     videoUrl: string;
     endingText?: string;
+    question?: string;
   };
   children?: VideoTree[];
 };
@@ -42,12 +43,13 @@ export const video2tree = (videos: VideoObject[]): VideoTree | undefined => {
   function populateVideoChild(answer: VideoTree) {
     const { id } = answer;
 
-    data.some((node) => {
+    data.forEach((node) => {
       if (node.attributes.pid === id) {
         if (!answer.children) {
           answer.children = [];
         }
         answer.children.push(node);
+        populateVideosChildren(node);
       }
     });
   }
