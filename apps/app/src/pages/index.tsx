@@ -32,9 +32,10 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
     if (isStart && firstClick) {
       setFirstClick(false);
       const appRef = ref(database, "app");
-      await update(appRef, {
-        views: (views ?? 0) + 1,
-      });
+      views &&
+        (await update(appRef, {
+          views: views + 1,
+        }));
     }
   };
 
@@ -189,6 +190,11 @@ export async function getServerSideProps() {
     };
   } catch (error) {
     console.error(error);
+    return {
+      props: {
+        video: undefined,
+      },
+    };
   }
 }
 
