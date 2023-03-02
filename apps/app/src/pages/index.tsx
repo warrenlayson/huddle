@@ -24,7 +24,7 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [end, setEnd] = useState(false);
   const isStart = video === vid;
-  const [views, loading, error] = useViews();
+  const [views] = useViews();
   const [firstClick, setFirstClick] = useState(true);
 
   const play = async () => {
@@ -106,10 +106,6 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
   const strPadLeft = (string: number, pad: string, length: number) =>
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     (new Array(length + 1).join(pad) + string).slice(-length);
-
-  if (error) return <div>Error: {JSON.stringify(error)}</div>;
-
-  if (loading) return <div>Loading...</div>;
 
   return (
     <Layout title={"App | Huddle"}>
