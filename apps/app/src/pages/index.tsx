@@ -18,6 +18,7 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
   const [video, setVideo] = useState(vid);
   const videoPlayer = useRef<HTMLVideoElement | null>(null);
   const [playerState, setPlayerState] = useState<VideoPlayerState>("idle");
+  const [showOptions, setShowOptions] = useState(false);
   const [end, setEnd] = useState(false);
 
   const play = async () => {
