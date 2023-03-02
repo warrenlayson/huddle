@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import CommentBox from "@/components/CommentBox";
 import GameEndModal from "@/components/GameEndModal";

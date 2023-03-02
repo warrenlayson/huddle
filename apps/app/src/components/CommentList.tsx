@@ -4,9 +4,11 @@ import { firestore } from "@/lib/firebase";
 import { collection, limit, orderBy, query } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 
+const COMMENT_INCREMENT = 5;
+
 type CommentListProps = { commentCount: number };
 const CommentList: React.FC<CommentListProps> = ({ commentCount }) => {
-  const [commentLimit, setCommentLimit] = React.useState(25);
+  const [commentLimit, setCommentLimit] = React.useState(5);
   const q = query(
     collection(firestore, "comments"),
     orderBy("createdAt", "desc"),
@@ -35,7 +37,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentCount }) => {
       {value && value.docs.length != commentCount && (
         <button
           type={"button"}
-          onClick={() => setCommentLimit(commentLimit + 25)}
+          onClick={() => setCommentLimit(commentLimit + COMMENT_INCREMENT)}
         >
           Show more
         </button>
