@@ -1,0 +1,272 @@
+{
+  "name": "intro",
+  "id": "DPNHMojzoGggLsCeUzGa",
+  "attributes": {
+    "description": "",
+    "videoUrl": "https://stream.mux.com/0201Z5KYywntDkZhgp80194lpboh02iv002rrRkihXogwHPc.m3u8",
+    "question": "Would you like to meet Paulo?",
+    "time": "03:09",
+    "endingText": "",
+    "pid": "null"
+  },
+  "children": [
+    {
+      "name": "2a",
+      "id": "6FomJa30y24T5HX10RyM",
+      "attributes": {
+        "description": "Yes, I would like to meet him up.",
+        "time": "01:21",
+        "videoUrl": "https://stream.mux.com/VQKaEMmxP6TtYde6gZ2cOk8fyxz87PhZ6KvWcEWx8mk.m3u8",
+        "pid": "DPNHMojzoGggLsCeUzGa",
+        "endingText": "",
+        "question": "Would you like to go to the gig?"
+      },
+      "children": [
+        {
+          "name": "3b",
+          "id": "99k9lU15HcB4SSbPdqdn",
+          "attributes": {
+            "question": "",
+            "time": "01:50",
+            "description": "No, I want to think about it first.",
+            "pid": "6FomJa30y24T5HX10RyM",
+            "endingText": "You were deceived!\nIdentity Theft and Fraud!\nTake another journey by going from the start.",
+            "videoUrl": "https://stream.mux.com/MZHylhmt4m02J6u33wQZR3aHV01ljslxJQYAgXP9JDTa00.m3u8"
+          }
+        },
+        {
+          "name": "3a",
+          "id": "uVs3r19vEePLOqDBUjUp",
+          "attributes": {
+            "videoUrl": "https://stream.mux.com/V7qup7weOvWD1RhR42tdh6QQcVNxkLUv8iShXlBvooM.m3u8",
+            "endingText": "",
+            "question": "Would you like to help Paulo?",
+            "pid": "6FomJa30y24T5HX10RyM",
+            "time": "01:20",
+            "description": "Yes, I would like to go."
+          },
+          "children": [
+            {
+              "name": "4c",
+              "id": "BmUVz5C07T46T0zsU1pX",
+              "attributes": {
+                "pid": "uVs3r19vEePLOqDBUjUp",
+                "videoUrl": "https://stream.mux.com/01l01lByZwDFFJHaPUvHjOX01Lv017w00UsGkAVNEy01KbqYs.m3u8",
+                "description": "Yes, I will help.",
+                "endingText": "",
+                "question": "What would you do?",
+                "time": "01:40"
+              },
+              "children": [
+                {
+                  "name": "5e",
+                  "id": "fvLvIvRHTnyfO6mUiJTV",
+                  "attributes": {
+                    "endingText": "You have escaped.\nTake another journey by going from the start.",
+                    "pid": "BmUVz5C07T46T0zsU1pX",
+                    "question": "",
+                    "description": "Look around and find an exit.",
+                    "time": "00:38",
+                    "videoUrl": "https://stream.mux.com/SKSlsQfT7QhJzJI00tiEbzkZz7nEAmhJbgoGkkRY8njo.m3u8"
+                  }
+                },
+                {
+                  "name": "5d",
+                  "id": "sMgEQ04RUEQHp2s1vC6S",
+                  "attributes": {
+                    "videoUrl": "https://stream.mux.com/vmpUE02M00jVJD6YGWQjE02K28jx01OVPassv7KxRfNt35s.m3u8",
+                    "time": "01:34",
+                    "endingText": "You died at Paulo’s hands.\nTake another journey by going from the start.",
+                    "description": "Enter the bathroom and lock yourself in.",
+                    "pid": "BmUVz5C07T46T0zsU1pX",
+                    "question": ""
+                  }
+                }
+              ]
+            },
+            {
+              "name": "4d",
+              "id": "ksaFeEjKpEEmOo5QMnM7",
+              "attributes": {
+                "videoUrl": "https://stream.mux.com/JNvUd01O2DXpXwLCMCiRs02bzsSvsLRmLUd1bFWNLItjY.m3u8",
+                "endingText": "You went home safely.\nTake another journey by going from the start.",
+                "question": "",
+                "time": "00:52",
+                "description": "No, I will politely decline.",
+                "pid": "uVs3r19vEePLOqDBUjUp"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2b",
+      "id": "maoQeSVbxzz3a3BTuf0V",
+      "attributes": {
+        "endingText": "",
+        "videoUrl": "https://stream.mux.com/WKwcZPugyj7bw9BOPjFcFndGfHfUPyL2mnarUXutVuc.m3u8",
+        "description": "No, I wanna get to know Paulo first.",
+        "pid": "DPNHMojzoGggLsCeUzGa",
+        "time": "02:58",
+        "question": "Would you like to meet Paulo?"
+      },
+      "children": [
+        {
+          "name": "3c",
+          "id": "aqQ6xdFhoOHaTbUCBYRK",
+          "attributes": {
+            "endingText": "",
+            "description": "Yes, I would like to meet him.",
+            "pid": "maoQeSVbxzz3a3BTuf0V",
+            "videoUrl": "https://stream.mux.com/oP8tbDW02bNkBKB702nSjzEPcDJ2y72Ntce92vfxFY6OA.m3u8",
+            "time": "01:31",
+            "question": "Would you like to have dinner with Paulo?"
+          },
+          "children": [
+            {
+              "name": "4a",
+              "id": "03RBvzIpltkgIHCv2Gyy",
+              "attributes": {
+                "videoUrl": "https://stream.mux.com/01CkmAOzxiYA01wsTJ3bJVqqVzAiEDLbp9G4LRVGUhkAQ.m3u8",
+                "endingText": "",
+                "question": "Would you be fine to take a detour?",
+                "description": "Yes, I would like to have dinner with Paulo.",
+                "time": "00:22",
+                "pid": "aqQ6xdFhoOHaTbUCBYRK"
+              },
+              "children": [
+                {
+                  "name": "3a.2",
+                  "id": "HJjtZAejLkKvJ33UpzTg",
+                  "attributes": {
+                    "pid": "03RBvzIpltkgIHCv2Gyy",
+                    "description": "Yes, it's okay to take a little detour.",
+                    "videoUrl": "https://stream.mux.com/TNhiW9qkWBS32OKsamW5QLoUO1SfL4LZT6Zv2z5wOnI.m3u8",
+                    "question": "Would you like to help Paulo?",
+                    "time": "00:40",
+                    "endingText": ""
+                  },
+                  "children": [
+                    {
+                      "name": "4d",
+                      "id": "1dIlbkHBzJDBxuXTugFb",
+                      "attributes": {
+                        "time": "00:52",
+                        "endingText": "You went home safely.\nTake another journey from the start.",
+                        "question": "",
+                        "pid": "HJjtZAejLkKvJ33UpzTg",
+                        "videoUrl": "https://stream.mux.com/JNvUd01O2DXpXwLCMCiRs02bzsSvsLRmLUd1bFWNLItjY.m3u8",
+                        "description": "No, I will politely decline."
+                      }
+                    },
+                    {
+                      "name": "4c",
+                      "id": "DvvA2WbvuNDW0byrPt8q",
+                      "attributes": {
+                        "videoUrl": "https://stream.mux.com/01l01lByZwDFFJHaPUvHjOX01Lv017w00UsGkAVNEy01KbqYs.m3u8",
+                        "description": "Yes, I will help.",
+                        "endingText": "",
+                        "time": "01:40",
+                        "question": "What would you do?",
+                        "pid": "HJjtZAejLkKvJ33UpzTg"
+                      },
+                      "children": [
+                        {
+                          "name": "5d",
+                          "id": "PHvz9V5xcUqW2VEuNa9l",
+                          "attributes": {
+                            "endingText": "You died at Paulo's hands.\nTake another journey by going from the start.",
+                            "videoUrl": "https://stream.mux.com/vmpUE02M00jVJD6YGWQjE02K28jx01OVPassv7KxRfNt35s.m3u8",
+                            "description": "Enter the bathroom and lock yourself in.",
+                            "question": "",
+                            "time": "01:34",
+                            "pid": "DvvA2WbvuNDW0byrPt8q"
+                          }
+                        },
+                        {
+                          "name": "5e",
+                          "id": "YM5TO8eMK0MAohO04Wie",
+                          "attributes": {
+                            "pid": "DvvA2WbvuNDW0byrPt8q",
+                            "time": "00:38",
+                            "question": "",
+                            "endingText": "You have escaped.\nTake another journey by going from the start.",
+                            "videoUrl": "https://stream.mux.com/SKSlsQfT7QhJzJI00tiEbzkZz7nEAmhJbgoGkkRY8njo.m3u8",
+                            "description": "Look around and find an exit."
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "5a",
+                  "id": "bSKr18szBIEWX83kpjFs",
+                  "attributes": {
+                    "question": "",
+                    "videoUrl": "https://stream.mux.com/prjEfDNyDPLqJai2KsaE02JjoOborQyCPd11egoGMFpw.m3u8",
+                    "time": "03:06",
+                    "pid": "03RBvzIpltkgIHCv2Gyy",
+                    "endingText": "You found a new friend.\nTake another journey by going from the start.",
+                    "description": "No, It seems urgent. We can have dinner next time."
+                  }
+                }
+              ]
+            },
+            {
+              "name": "4b",
+              "id": "Xh7b7UhjWwCvQQ6rUSXI",
+              "attributes": {
+                "endingText": "",
+                "time": "04:12",
+                "videoUrl": "https://stream.mux.com/fAcRpAkFJHUxa0102dVZlcOh3dBkNUiPeLSrtHzDa42mQ.m3u8",
+                "question": "Would you let Paulo court you?",
+                "pid": "aqQ6xdFhoOHaTbUCBYRK",
+                "description": "I’m kind of busy tonight, let’s have dinner on another date."
+              },
+              "children": [
+                {
+                  "name": "5c",
+                  "id": "hThXaX8YLLgL5HzBoHjj",
+                  "attributes": {
+                    "pid": "Xh7b7UhjWwCvQQ6rUSXI",
+                    "time": "00:37",
+                    "endingText": "You broke Paulo’s heart.\nTake another journey by going from the start.",
+                    "videoUrl": "https://stream.mux.com/c02Tktfz7ilKQaLR7JGgFSOaQm02fw003qB7KyT6yCxlew.m3u8",
+                    "question": "",
+                    "description": "No, I think I'm not ready for a relationship just yet."
+                  }
+                },
+                {
+                  "name": "5b",
+                  "id": "t90iEGaqLMru0VCJxkvI",
+                  "attributes": {
+                    "description": "Yes, I want to take this relationship to the next level.",
+                    "time": "00:32",
+                    "question": "",
+                    "pid": "Xh7b7UhjWwCvQQ6rUSXI",
+                    "endingText": "You became lovers!\nTake another journey by going from the start.",
+                    "videoUrl": "https://stream.mux.com/6g4PW7wl1a6J022RYI4kgd01iiDQFtyRUG02qasKO19eok.m3u8"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "3d",
+          "id": "gw7S2fj6FBRkvoVRpz1X",
+          "attributes": {
+            "question": "",
+            "endingText": "You have lost a match. Goodbye.\nTake another journey by going from the start.",
+            "description": "No, I don’t think I have any sparks with Paulo.",
+            "pid": "maoQeSVbxzz3a3BTuf0V",
+            "videoUrl": "https://stream.mux.com/e1IwSQ4gyS02REivXwFzygp501Kg8o3dlEkjayUBby01G4.m3u8",
+            "time": "01:36"
+          }
+        }
+      ]
+    }
+  ]
+}

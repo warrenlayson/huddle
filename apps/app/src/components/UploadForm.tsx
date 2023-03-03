@@ -1,14 +1,10 @@
-import useVideos from "@/hooks/useVideos";
 import { firestore } from "@/lib/firebase";
-import { type VideoSchema } from "@/types.";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
 export const UploadForm = () => {
-  const [value] = useVideos();
-
   const formSchema = z.object({
     nickname: z.string().optional(),
     time: z.string().optional(),
@@ -79,32 +75,7 @@ export const UploadForm = () => {
           {...register("file")}
         />
       </div>
-      {value?.docs.length !== 0 && (
-        <div className="space-y-4">
-          <label htmlFor="childOf">Parent: </label>
-          <select
-            {...register("pid")}
-            id="childOf"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            defaultValue={"null"}
-          >
-            <option value={"null"} disabled>
-              Select Here
-            </option>
-            {value?.docs.map((doc) => {
-              const data = doc.data() as VideoSchema;
-              const parent = value.docs
-                .find((doc) => doc.id === data.pid)
-                ?.data();
-              return (
-                <option key={doc.id} value={doc.id}>
-                  {data.fileName} {parent && `- ${parent.fileName}`}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-      )}
+
       <div>
         <input
           type="text"

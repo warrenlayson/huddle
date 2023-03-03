@@ -6,12 +6,11 @@ import GameEndModal from "@/components/GameEndModal";
 import Layout from "@/components/Layout";
 import VideoButtonOverlay from "@/components/VideoButtonOverlay";
 import ViewCounter from "@/components/ViewCounter";
+import useVideos from "@/hooks/useVideos";
 import useViews from "@/hooks/useViews";
-import { database, firestore } from "@/lib/firebase";
-import { video2tree, type VideoTree } from "@/lib/video2tree";
-import { type VideoObject, type VideoSchema } from "@/types.";
+import { database } from "@/lib/firebase";
+import { type VideoTree } from "@/lib/video2tree";
 import { ref, update } from "firebase/database";
-import { collection, getDocs, query } from "firebase/firestore";
 import { type OnProgressProps } from "react-player/base";
 
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
@@ -23,12 +22,22 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
   const [playerState, setPlayerState] = useState<VideoPlayerState>("idle");
   const [showOptions, setShowOptions] = useState(false);
   const [end, setEnd] = useState(false);
-  const isStart = video === vid;
   const [views, loading, error] = useViews();
   const [firstClick, setFirstClick] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { data, error: videosError } = useVideos();
+
+  React.useEffect(() => {
+    if (data && !videosError) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      setVideo(JSON.parse(data));
+    }
+  }, [data, videosError]);
 
   const play = async () => {
     setPlayerState("playing");
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const isStart = Boolean(data && video?.id === JSON.parse(data)?.id);
     if (isStart && firstClick) {
       setFirstClick(false);
       const appRef = ref(database, "app");
@@ -57,7 +66,8 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
   const reset = () => {
     setEnd(false);
     setFirstClick(true);
-    setVideo(vid);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    data && setVideo(JSON.parse(data));
     setPlayerState("idle");
   };
 
@@ -70,7 +80,6 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
   };
 
   const onTimeUpdate = (duration: number) => {
-    console.log({ duration });
     if (playerState !== "end") {
       const minutes = Math.floor(duration / 60);
       const seconds = Math.floor(duration - minutes * 60);
@@ -145,11 +154,13 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
                   </div>
                 </div>
               ) : (
-                <VideoButtonOverlay
-                  ended={end}
-                  onClick={onPlay}
-                  playing={playerState === "playing"}
-                />
+                <>
+                  <VideoButtonOverlay
+                    ended={end}
+                    onClick={onPlay}
+                    playing={playerState === "playing"}
+                  />
+                </>
               )}
               {end && video && video.attributes.endingText && (
                 <GameEndModal
@@ -165,37 +176,5 @@ const Home: NextPage<{ video: VideoTree | undefined }> = ({ video: vid }) => {
     </Layout>
   );
 };
-
-export async function getServerSideProps() {
-  try {
-    const q = query(collection(firestore, "videos"));
-    const qs = await getDocs(q);
-    const videos = qs.docs.map((doc) => {
-      const data = doc.data();
-
-      delete data.createdAt;
-
-      return {
-        id: doc.id,
-        ...(data as VideoSchema),
-      };
-    }) satisfies VideoObject[];
-
-    const video = video2tree(videos);
-
-    return {
-      props: {
-        video,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        video: undefined,
-      },
-    };
-  }
-}
 
 export default Home;

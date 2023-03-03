@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -6,8 +6,7 @@ import Layout from "@/components/Layout";
 import { UploadForm } from "@/components/UploadForm";
 import useVideos from "@/hooks/useVideos";
 import { auth } from "@/lib/firebase";
-import { video2tree } from "@/lib/video2tree";
-import { type VideoObject, type VideoSchema } from "@/types.";
+import type { VideoTree } from "@/lib/video2tree";
 import Tree from "react-d3-tree";
 import { type RenderCustomNodeElementFn } from "react-d3-tree/lib/types/types/common";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,9 +14,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const Upload: NextPage = () => {
   const [user] = useAuthState(auth);
   const router = useRouter();
-
-  const [value, loading, error] = useVideos();
-  const [tree, setTree] = useState<ReturnType<typeof video2tree>>(undefined);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { data, error } = useVideos();
 
   React.useEffect(() => {
     if (!user) {
@@ -26,19 +24,10 @@ const Upload: NextPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  React.useEffect(() => {
-    if (value && !loading) {
-      const videos = value.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as VideoSchema),
-      })) satisfies VideoObject[];
-      setTree(video2tree(videos));
-    }
-  }, [value, loading]);
-
   if (error) return <strong>Error: {JSON.stringify(error, null, 2)}</strong>;
 
-  if (!value && loading) return <span>Collection: loading...</span>;
+  if (!data) return <span>Loading...</span>;
+  const tree = JSON.parse(data) as VideoTree;
   return (
     <Layout title={"Upload | Huddle"}>
       <Head>
@@ -53,7 +42,7 @@ const Upload: NextPage = () => {
             "overflow- h-screen w-3/5 gap-4 rounded-md border-2 p-6 shadow-md"
           }
         >
-          {tree && (
+          {data && (
             <div id="treeWrapper" className="h-full w-full">
               <Tree
                 data={tree}
